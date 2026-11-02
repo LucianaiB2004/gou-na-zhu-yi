@@ -1,66 +1,68 @@
 # 🐕 狗拿主意
 
-人类负责向往诗和远方，狗负责帮人拿主意。
+想出发，还没拿定主意？查交通、挑住处、找玩法，把这趟安排明白。
 
-**队伍：不拿第一，就奖励自己** · 口号：懒才是进步的阶梯
+队伍：**不拿第一，就奖励自己**。2026 飞猪 AI 旅行创新大赛作品；官方报名暂未提交。
 
-一个嘴上不饶人、实际上认真负责的旅行决策狗。当前版本实现**酒店决策闭环**：飞猪真实检索 → 程序筛选日期与住宿预算 → TypeSafe Jev 辅助选择 → 一个主推、淘汰记录、风险提示 → “我不服”增量重选。
+![界面与真实酒店结果](docs/screenshots/redesign-desktop.jpg)
 
-![真实运行截图](docs/screenshots/recommendation.jpg)
+## 直接使用
 
-## 启动
+[打开网页](https://lucianaib2004.github.io/gou-na-zhu-yi/)，在右上角「API 设置」填写自己的 Key。所有 Key 仅在本页内存中使用，刷新即清除，不写入 localStorage、仓库或服务端数据库。
 
-需要 Node.js 22.18+。使用你自己的飞猪、TypeSafe API Key。
+| 想做什么 | 需要的服务 |
+|---|---|
+| 查交通、景点、套餐等旅行信息 | 飞猪 Key |
+| 选一个住处，查看淘汰依据与重选 | 飞猪 + TypeSafe Jev Key |
+| 对话规划、解释和辅助选择 | 阿里云百炼 Key；实时查询另需飞猪 Key |
+
+每个 Key 可以单独验证和应用。阿里云 Key 的地域需与设置一致，默认北京、`qwen-plus`。验证与使用均消耗对应服务的实际额度。设置中会明确列出传输路径：浏览器 → 用户可自选的可信 API 转发服务 → 对应官方 API；转发服务不保存用户 Key。默认服务为本项目账户下的 `gou-nazhu-yi-api.lucianaib.chatgpt.site`，源码位于 `gateway/worker.mjs`。
+
+## 三个入口
+
+- **选住宿**：按真实日历、间夜、房间数、住宿总预算、评分筛选；Jev 仅在合格候选中选择，非法概率或低置信度不会变成假主推。「我不服」保留原始条件、历次更正，排除上次主推。
+- **查旅行**：8 类官方查询工具全部接入，涵盖机票、国内火车、景点、酒店/民宿、万豪酒店/套餐、关键词商品搜索、跨品类语义搜索。演出赛事、邮轮度假、租车接送、签证通信、跟团游学通过官方全域搜索查询，不宣称存在独立专用接口。
+- **聊行程**：阿里云模型理解问题，通过 Function Calling 选择官方工具，接收真实结果后辅助判断。应急、酒店度假、入境游、活动、亲子游学、文化讲解、小众探索等提供话题入口。结构化结果的推荐必须引用本轮真实候选，事实由原始字段渲染，缺失信息显示未知；语义文本以官方搜索整理展示。连续对话保留需求与否决项，不自动清空行程。
+
+界面外层保持一屏；长结果、对话和高级查询参数在各自区域内滚动。无账号、数据库或持久化旅行存档。
+
+## 本地运行
+
+Node.js 22.18+：
 
 ```powershell
 npm ci
-Copy-Item .env.example .env
-# 编辑 .env 填写 FLYAI_API_KEY 与 TYPESAFE_API_KEY
 npm start
 ```
 
-打开 http://127.0.0.1:3210 。Windows 可运行 `启动狗拿主意.cmd`。密钥仅保存在本机被 Git 忽略的 `.env` 中；不要上传此文件。
+打开 `http://127.0.0.1:3210`，仍在界面填写自己的 Key。Windows 也可使用 `启动狗拿主意.cmd`。
 
 ```powershell
 npm test
 npm run check
+npm run build
 ```
 
-本项目不需要前端构建，也不增加账号、数据库或持久化用户存档。旅行条件只保留在当前页面内存，服务重启即清除限流计数。
+`dist/` 是可发布到 GitHub Pages 的静态网页，资源路径支持仓库子目录。原有 `scripts/decide.mjs` 命令行工具继续从本机忽略的 `.env` 读取 `FLYAI_API_KEY` 和 `TYPESAFE_API_KEY`，不要上传 `.env`。
 
-## 真实分工
+## 百炼中的真实使用
 
-- 飞猪官方 `@fly-ai/flyai-cli` 1.0.16：执行 `search-hotel`，日期、目的地、每晚价格上限均按官方参数传入。
-- 程序：严格校验日期、晚数、房间数、总住宿预算、评分、共享床位与链接；拒绝把起价、区间或未知价格当成准确金额。
-- TypeSafe 官方 `https://api.typesafe.ai/v1/systemone`：发送 `state + choice question`，包括 `defer` 暂缓选项；只允许返回预先筛选的候选。检查候选 ID、完整概率分布、置信度范围，置信度低于 0.65 暂缓推荐。
-- 阿里云百炼 Managed Agent：按参赛指南创建“狗拿主意”，在云端会话安装飞猪官方 Skill、执行真实酒店检索；完整会话继续验证此项目。百炼在本项目的**开发与验证链路**中使用，浏览器独立版的运行时选择由 Jev 完成；不要将此描述为浏览器请求经过百炼模型。
+按参赛指南在百炼 Managed Agent 创建「狗拿主意」，使用 AUTO 和默认工具，安装官方 `alibaba-flyai/flyai-skill`，将 FlyAI Key 注入运行时环境。可复制的完整提示词见 [百炼系统提示词](docs/bailian-system-prompt.md)。
 
-其他旅行品类（机票、景点等）可通过百炼会话中的官方 FlyAI Skill 查询；本独立界面尚未实现全行程预算与组合优化。
+百炼会话内运行官方 FlyAI CLI；酒店调用 `node cloud/decide.mjs trip.json`，其他品类按官方 Skill 的 references 使用。百炼本身承担理解、查询与判断，不只是开发环境。完整酒店对话和预算修改后重新查询已实测。
 
-**已观察到的云端限制**：百炼沙箱中飞猪真实调用与测试正常，但 TypeSafe 官方接口返回 HTTP 451（当前地区不可用），所以该沙箱未跑通 Jev。本机完整 FlyAI + Jev 闭环已真实验证。详见 [验证记录](docs/verification.md)。
+Jev 在百炼当前区域返回 HTTP 451，用户已确认接受此限制；不绕过地区限制。百炼可以使用自身模型对真实飞猪候选判断，并明确标记 Jev 未参与。Jev 在本地和 GitHub 网页的真实接口已验证成功，实际返回 `jev-1.14.0`。不要将两条路径混称为百炼直连 Jev 成功。
 
-## 边界
+## 能力边界
 
-住宿估算 = 飞猪每间每晚展示价 × 晚数 × 房间数。它不是锁定报价。未核实房型、实时库存、入住人数上限、早餐、税费、取消政策、安静程度。仅计算住宿，不含交通、餐饮、门票。
+当前飞猪官方开放以搜索为主，应用不创建订单、不付款、不出票、退改、值机或处理个人证件。所有赛道入口表示可辅助查询和规划，不能理解为每个赛道的专业全功能系统。尚未实现拍照识别、语音、实时定位、完整官方活动日历或权威政策/历史资料检索。
 
-“其余合格候选”表示通过硬性条件，但本轮未主推，不编造模型未返回的淘汰理由。Jev 返回的置信度不是业务正确率或酒店质量保证。
+展示价不是锁定报价。住宿估算 = 每间每晚展示价 × 晚数 × 房间数，不含其他旅行开支；房型、人数、库存、税费、早餐、安静程度及退改需到飞猪详情核实。其他品类的计价单位与日期也需核对。模型可能误判，应核对返回依据；没有搜索来源的一般讲解不能当成已核实事实。
 
-“我不服”保留城市、日期、预算和房间数，保留原始顾虑及逐轮补充/更正记录，并排除上次主推（最新明确更正优先，其余条件保留）。顾虑需要未提供的证据或模型信号不足时，诚实暂缓。
+## 证据与来源
 
-默认仅监听本机。不要直接将带个人密钥的服务开放到公网；公开演示需要部署方提供访问控制、统一预算和更严格的限流。本次代码无下单、支付或用户身份采集逻辑。
+[验证记录](docs/verification.md) · [8 工具真实调用记录](docs/travel-verification.json) · [用户视角验收](docs/ux-review.md) · [待提交材料](docs/submission.md)
 
-## 百炼复现
+官方来源：[比赛](https://opc.aliyun.com/feizhu)、[参赛指南](https://alidocs.dingtalk.com/i/nodes/QG53mjyd800agdlKHebwk4Zj86zbX04v)、[FlyAI 文档](https://flyai.open.fliggy.com/docs)、[官方 Skill](https://github.com/alibaba-flyai/flyai-skill)、[阿里云兼容接口](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope)、[Function Calling](https://help.aliyun.com/zh/model-studio/qwen-function-calling)。
 
-在 Managed Agent 创建智能体，模型使用 AUTO，系统提示词参考 [项目介绍](狗拿主意项目介绍.md)。创建会话时注入 `FLYAI_API_KEY`、`TYPESAFE_API_KEY`。在云端安装：
-
-```sh
-npx --yes skills add alibaba-flyai/flyai-skill --skill flyai --agent claude-code -y
-npm ci
-npm test
-```
-
-读取飞猪 Skill 的 `SKILL.md` 和 `references/search-hotel.md` 后调用，不猜参数。`node scripts/decide.mjs trip.json` 可供百炼智能体调用结构化决策，其中 `trip.json` 只包含旅行条件，不包含密钥。
-
-仓库附带 `.agents/skills/flyai` 官方文档快照，来源 `alibaba-flyai/flyai-skill` 提交 `86fe2cc3e25464d0e0bd6a769b27b5f9f3b04128`，保留上游 MIT LICENSE。遇到 GitHub 网络故障时可从此本地目录读取或安装官方 Skill，不修改上游指令正文。
-
-官方来源：[比赛](https://opc.aliyun.com/feizhu)、[参赛指南](https://alidocs.dingtalk.com/i/nodes/QG53mjyd800agdlKHebwk4Zj86zbX04v)、[FlyAI Skill](https://github.com/alibaba-flyai/flyai-skill)、[TypeSafe API](https://docs.typesafe.ai/api/system-one)。
+官方 Skill 文档快照来自提交 `86fe2cc3e25464d0e0bd6a769b27b5f9f3b04128`，保留 MIT LICENSE；CLI 版本 1.0.16。

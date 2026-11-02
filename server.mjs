@@ -3,11 +3,11 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {validateTrip,screenHotels} from './src/decision.mjs';
 import {searchHotels,decide} from './src/providers.mjs';
-const assets=new Map([['/',['index.html','text/html; charset=utf-8']],['/app.js',['app.js','text/javascript; charset=utf-8']],['/trip.js',['trip.js','text/javascript; charset=utf-8']],['/style.css',['style.css','text/css; charset=utf-8']]]);
+const assets=new Map([['/',['index.html','text/html; charset=utf-8']],...['app.js','explorer.js','grounded-choice.js','conversation.js','travel-tools.js','trip.js','api-client.js','decision-core.js'].map(f=>['/'+f,[f,'text/javascript; charset=utf-8']]),['/style.css',['style.css','text/css; charset=utf-8']],...['travel-dog.png','travel-landscape.png','travel-stickers.png','paw.svg'].map(f=>['/assets/'+f,['assets/'+f,f.endsWith('.svg')?'image/svg+xml':'image/png']])]);
 export function createApp(){
  let active=0;const rates=new Map();
  return http.createServer(async(req,res)=>{
-  res.setHeader('Content-Security-Policy',"default-src 'self'; img-src 'self' https://*.alicdn.com https://*.taobaocdn.com; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
+  res.setHeader('Content-Security-Policy',"default-src 'self'; img-src 'self' https://*.alicdn.com https://*.taobaocdn.com; style-src 'self'; script-src 'self'; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
   res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Cache-Control','no-store');
   const send=(status,body)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(body));};
   if(!/^(?:localhost|127\.0\.0\.1|\[::1\])(?::\d{1,5})?$/.test((req.headers.host??'').toLowerCase())){send(403,{error:'此版本只接受本机地址访问。'});return;}

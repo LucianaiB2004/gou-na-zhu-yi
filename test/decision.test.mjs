@@ -27,3 +27,6 @@ test('Jev 必须返回合法候选、完整概率、有效置信度；低置信�
  assert.equal(validateDecision({...answer,confidence:0.4},ids).choice,'defer');
  for(const bad of [{...answer,choice:'hack'},{...answer,confidence:2},{...answer,probabilities:{a:1}},{...answer,probabilities:{a:2,b:-1,defer:0}}]) assert.throws(()=>validateDecision(bad,ids));
 });
+test('上游混入非对象酒店时明确报告结构异常',()=>{
+ assert.throws(()=>screenHotels([null],validateTrip(trip,'2026-11-02')),/候选结构异常/);
+});

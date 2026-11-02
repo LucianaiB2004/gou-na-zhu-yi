@@ -1,0 +1,9 @@
+import {cp,mkdir,writeFile,readFile,readdir} from 'node:fs/promises';
+import {resolve} from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('..',import.meta.url));
+const target=resolve(root,'dist');
+await mkdir(target,{recursive:true});await cp(resolve(root,'public'),target,{recursive:true});await writeFile(resolve(target,'.nojekyll'),'');
+const names=await readdir(target);if(names.some(n=>n.startsWith('.env')||n==='node_modules'))throw new Error('静态输出包含不应发布的文件。');
+const html=await readFile(resolve(target,'index.html'),'utf8');if(/(?:src|href)="\//.test(html))throw new Error('GitHub Pages 资源必须使用相对路径。');
+console.log(`静态网页已生成：${target}`);

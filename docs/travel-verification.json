@@ -1,0 +1,66 @@
+[
+  {
+    "tool": "search_flight",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 4787,
+    "queriedAt": "2026-11-02T08:56:43.849Z"
+  },
+  {
+    "tool": "fliggy_fast_search",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 6493,
+    "queriedAt": "2026-11-02T08:56:45.673Z"
+  },
+  {
+    "tool": "fliggy_ai_search",
+    "ok": true,
+    "type": "string",
+    "count": null,
+    "ms": 18374,
+    "queriedAt": "2026-11-02T08:56:57.578Z"
+  },
+  {
+    "tool": "search_poi",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 2475,
+    "queriedAt": "2026-11-02T08:57:00.051Z"
+  },
+  {
+    "tool": "search_domestic_train",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 2495,
+    "queriedAt": "2026-11-02T08:57:00.075Z"
+  },
+  {
+    "tool": "search_hotels",
+    "ok": true,
+    "type": "object",
+    "count": 11,
+    "ms": 7048,
+    "queriedAt": "2026-11-02T08:57:04.629Z"
+  },
+  {
+    "tool": "search_marriott_packages",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 3387,
+    "queriedAt": "2026-11-02T08:57:08.003Z"
+  },
+  {
+    "tool": "search_marriott_hotels",
+    "ok": true,
+    "type": "object",
+    "count": 10,
+    "ms": 6618,
+    "queriedAt": "2026-11-02T08:57:11.250Z"
+  }
+]
