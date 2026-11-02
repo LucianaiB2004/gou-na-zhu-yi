@@ -28,7 +28,6 @@ export function answerMarkdown(model,{reason='',notice=''}={}){
  if(model.candidates.length){lines.push('---','**查看后再决定：** 展示价与库存随时可能变化；开放、预约、适用人群、设施、税费与退改，以官方详情确认。');
   const sources=[...new Set(model.candidates.map(h=>`${TOOLS.find(t=>t.name===h.tool)?.label??'飞猪查询'} · ${new Date(h.queriedAt).toLocaleString('zh-CN')}`))];lines.push('查询来源：'+sources.map(escape).join('；')+'。');}
  for(const hint of model.hints)lines.push(`> 平台提示：${escape(hint)}`);
- if(model.candidates.some(h=>h.link)||model.semantic.length)lines.push('部分飞猪详情在电脑端会显示官方扫码页，可用飞猪、淘宝或支付宝继续查看。');
  return lines.join('\n\n');
 }
 export function renderEvidenceAnswer(target,model,options){const text=answerMarkdown(model,options);renderMarkdown(target,text);return text;}
