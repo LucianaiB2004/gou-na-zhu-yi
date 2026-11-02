@@ -24,7 +24,7 @@ function disclosure(){try{$('gateway-disclosure').textContent=`当前路径：�
 $('gateway-url').addEventListener('input',disclosure);disclosure();
 export function settingsInput(){return {gateway:$('gateway-url').value,flyaiKey:$('flyai-key').value,jevKey:$('jev-key').value,model:$('jev-model').value,aliyunKey:$('aliyun-key')?.value??'',aliyunModel:$('aliyun-model')?.value??'qwen-plus',region:$('aliyun-region')?.value??'beijing'};}
 export function currentSettings(){return settings;}
-function badge(){$('connection-badge').textContent=settings?'旅行工具 · 本次会话已配置':'飞猪 × Jev × 阿里云 · 等待配置';}
+function badge(){$('connection-badge').textContent=settings?'旅行工具 · 本次会话已配置':'飞猪 × 阿里云百炼 × Jev · 等待配置';}
 $('settings-form').addEventListener('submit',e=>{e.preventDefault();try{settings=validateSettings(settingsInput(),{partial:true});if(!settings.flyaiKey&&!settings.jevKey&&!settings.aliyunKey)throw new Error('至少填写一个服务的 Key。');badge();$('settings-dialog').close();}catch(error){$('settings-status').textContent=error.message;}});
 $('clear-keys').addEventListener('click',()=>{settings=null;$('flyai-key').value='';$('jev-key').value='';if($('aliyun-key'))$('aliyun-key').value='';$('flyai-test-result').textContent='';$('jev-test-result').textContent='';if($('aliyun-test-result'))$('aliyun-test-result').textContent='';$('settings-status').textContent='已清除本次会话的密钥。';badge();});
 async function verify(kind){
