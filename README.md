@@ -59,4 +59,6 @@ npm test
 
 读取飞猪 Skill 的 `SKILL.md` 和 `references/search-hotel.md` 后调用，不猜参数。`node scripts/decide.mjs trip.json` 可供百炼智能体调用结构化决策，其中 `trip.json` 只包含旅行条件，不包含密钥。
 
+仓库附带 `.agents/skills/flyai` 官方文档快照，来源 `alibaba-flyai/flyai-skill` 提交 `86fe2cc3e25464d0e0bd6a769b27b5f9f3b04128`，保留上游 MIT LICENSE。遇到 GitHub 网络故障时可从此本地目录读取或安装官方 Skill，不修改上游指令正文。
+
 官方来源：[比赛](https://opc.aliyun.com/feizhu)、[参赛指南](https://alidocs.dingtalk.com/i/nodes/QG53mjyd800agdlKHebwk4Zj86zbX04v)、[FlyAI Skill](https://github.com/alibaba-flyai/flyai-skill)、[TypeSafe API](https://docs.typesafe.ai/api/system-one)。

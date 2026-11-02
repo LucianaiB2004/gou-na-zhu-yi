@@ -10,6 +10,7 @@ export function createApp(){
   res.setHeader('Content-Security-Policy',"default-src 'self'; img-src 'self' https://*.alicdn.com https://*.taobaocdn.com; style-src 'self'; script-src 'self'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'");
   res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('Cache-Control','no-store');
   const send=(status,body)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(body));};
+  if(!/^(?:localhost|127\.0\.0\.1|\[::1\])(?::\d{1,5})?$/.test((req.headers.host??'').toLowerCase())){send(403,{error:'此版本只接受本机地址访问。'});return;}
   const path=(req.url??'').split('?')[0];
   if(req.method==='GET'&&assets.has(path)){
    const [file,type]=assets.get(path);try{const body=await readFile(new URL('./public/'+file,import.meta.url));res.writeHead(200,{'Content-Type':type});res.end(body);}catch{send(500,{error:'界面资源缺失。'});}return;
