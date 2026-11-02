@@ -61,7 +61,7 @@ Jev 在百炼当前区域返回 HTTP 451，用户已确认接受此限制；不�
 
 ## 证据与来源
 
-[验证记录](docs/verification.md) · [8 工具真实调用记录](docs/travel-verification.json) · [用户视角验收](docs/ux-review.md) · [待提交材料](docs/submission.md)
+[项目进度与未实现能力](docs/progress.md) · [验证记录](docs/verification.md) · [8 工具真实调用记录](docs/travel-verification.json) · [用户视角验收](docs/ux-review.md) · [待提交材料](docs/submission.md)
 
 官方来源：[比赛](https://opc.aliyun.com/feizhu)、[参赛指南](https://alidocs.dingtalk.com/i/nodes/QG53mjyd800agdlKHebwk4Zj86zbX04v)、[FlyAI 文档](https://flyai.open.fliggy.com/docs)、[官方 Skill](https://github.com/alibaba-flyai/flyai-skill)、[阿里云兼容接口](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope)、[Function Calling](https://help.aliyun.com/zh/model-studio/qwen-function-calling)。
 
