@@ -19,7 +19,11 @@ function parseMcp(text,generic=false){
  if(message?.error||!message?.result)throw new Error('飞猪 MCP 未返回有效结果。');
  const raw=JSON.parse(message.result.content?.find(c=>c.type==='text')?.text??'null');
  if(raw?.status!==0)throw new Error('飞猪业务查询未成功，请调整查询条件或稍后重试。');
- if(generic)return {data:raw.data,hint:typeof raw.systemMessage==='string'?raw.systemMessage.slice(0,3000):null};
+ if(generic){
+  const data=raw.data,valid=typeof data==='string'?!!data.trim():Array.isArray(data)||(data&&typeof data==='object'&&(Array.isArray(data.itemList)||['text','content','answer','summary'].some(k=>typeof data[k]==='string'&&data[k].trim())));
+  if(!Object.hasOwn(raw,'data')||!valid)throw new Error('飞猪返回结构异常，不能将其当作没有候选。');
+  return {data,hint:typeof raw.systemMessage==='string'?raw.systemMessage.slice(0,3000):null};
+ }
  if(!Array.isArray(raw.data?.itemList))throw new Error('飞猪未返回有效酒店候选。');
  return {items:raw.data.itemList.slice(0,50),hint:typeof raw.systemMessage==='string'?raw.systemMessage.slice(0,1500):null};
 }

@@ -66,3 +66,5 @@ Jev 在百炼当前区域返回 HTTP 451，用户已确认接受此限制；不�
 官方来源：[比赛](https://opc.aliyun.com/feizhu)、[参赛指南](https://alidocs.dingtalk.com/i/nodes/QG53mjyd800agdlKHebwk4Zj86zbX04v)、[FlyAI 文档](https://flyai.open.fliggy.com/docs)、[官方 Skill](https://github.com/alibaba-flyai/flyai-skill)、[阿里云兼容接口](https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope)、[Function Calling](https://help.aliyun.com/zh/model-studio/qwen-function-calling)。
 
 官方 Skill 文档快照来自提交 `86fe2cc3e25464d0e0bd6a769b27b5f9f3b04128`，保留 MIT LICENSE；CLI 版本 1.0.16。
+
+回答支持标题、加粗、列表、表格与可点击详情链接；证据不足时仍列出全部实际候选。Markdown依赖Marked18.1.2、DOMPurify3.4.17，随静态网页本地分发并保留许可证，不依赖公共CDN。

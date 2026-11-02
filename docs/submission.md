@@ -25,7 +25,7 @@
 - [验证记录](https://github.com/LucianaiB2004/gou-na-zhu-yi/blob/main/docs/verification.md)
 - [真实界面截图](https://raw.githubusercontent.com/LucianaiB2004/gou-na-zhu-yi/main/docs/screenshots/redesign-desktop.jpg)
 
-8类官方工具真实调用成功，22项自动测试通过。Node.js 22.18+，`npm ci`、`npm start`；静态构建 `npm run build`。不需要账号、数据库或持久化旅行档案。
+8类官方工具真实调用成功，32项自动测试通过。Node.js 22.18+，`npm ci`、`npm start`；静态构建 `npm run build`。不需要账号、数据库或持久化旅行档案。
 
 当前只读搜索与旅行辅助，不下单、支付、退改或处理证件。拍照、语音、实时定位未实现，不声称全赛道专业能力均已完成。
 

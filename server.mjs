@@ -3,7 +3,7 @@ import {readFile} from 'node:fs/promises';
 import {fileURLToPath} from 'node:url';
 import {validateTrip,screenHotels} from './src/decision.mjs';
 import {searchHotels,decide} from './src/providers.mjs';
-const assets=new Map([['/',['index.html','text/html; charset=utf-8']],...['app.js','explorer.js','grounded-choice.js','conversation.js','travel-tools.js','trip.js','api-client.js','decision-core.js'].map(f=>['/'+f,[f,'text/javascript; charset=utf-8']]),['/style.css',['style.css','text/css; charset=utf-8']],...['travel-dog.png','travel-landscape.png','travel-stickers.png','paw.svg'].map(f=>['/assets/'+f,['assets/'+f,f.endsWith('.svg')?'image/svg+xml':'image/png']])]);
+const assets=new Map([['/',['index.html','text/html; charset=utf-8']],...['app.js','explorer.js','markdown.js','answer-model.js','answer-view.js','grounded-choice.js','conversation.js','travel-tools.js','trip.js','api-client.js','decision-core.js'].map(f=>['/'+f,[f,'text/javascript; charset=utf-8']]),...['marked.js','purify.js'].map(f=>['/vendor/'+f,['vendor/'+f,'text/javascript; charset=utf-8']]),['/style.css',['style.css','text/css; charset=utf-8']],...['travel-dog.png','travel-landscape.png','travel-stickers.png','paw.svg'].map(f=>['/assets/'+f,['assets/'+f,f.endsWith('.svg')?'image/svg+xml':'image/png']])]);
 export function createApp(){
  let active=0;const rates=new Map();
  return http.createServer(async(req,res)=>{

@@ -9,10 +9,13 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env server.mjs",
     "test": "node --test",
-    "check": "node --check server.mjs && node --check public/app.js && node --check public/explorer.js && node --check public/api-client.js && node --check public/conversation.js && node --check public/grounded-choice.js && node --check public/travel-tools.js && node --check cloud/decide.mjs && node --check gateway/worker.mjs",
-    "build": "node scripts/build-pages.mjs"
+    "check": "node --check server.mjs && node --check public/app.js && node --check public/explorer.js && node --check public/api-client.js && node --check public/conversation.js && node --check public/grounded-choice.js && node --check public/travel-tools.js && node --check cloud/decide.mjs && node --check gateway/worker.mjs && node --check public/markdown.js && node --check public/answer-model.js && node --check public/answer-view.js",
+    "build": "node scripts/build-pages.mjs",
+    "vendor:markdown": "node scripts/vendor-markdown.mjs"
   },
   "dependencies": {
-    "@fly-ai/flyai-cli": "1.0.16"
+    "@fly-ai/flyai-cli": "1.0.16",
+    "dompurify": "3.4.17",
+    "marked": "18.1.2"
   }
 }

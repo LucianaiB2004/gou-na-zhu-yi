@@ -1,6 +1,7 @@
 import {cp,mkdir,writeFile,readFile,readdir} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
+await import('./vendor-markdown.mjs');
 const root=fileURLToPath(new URL('..',import.meta.url));
 const target=resolve(root,'dist');
 await mkdir(target,{recursive:true});await cp(resolve(root,'public'),target,{recursive:true});await writeFile(resolve(target,'.nojekyll'),'');
