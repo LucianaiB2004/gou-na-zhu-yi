@@ -10,7 +10,7 @@ const categories=['自然风光','山湖田园','森林丛林','峡谷瀑布','�
 // Flights use one search_flight tool for domestic and international routes.
 export const TOOLS=[
  {name:'fliggy_fast_search',label:'旅行商品搜索',description:'搜索演出、活动、度假、租车、签证、邮轮、套餐等公开旅行商品，不下单。',fields:[string('query','完整搜索需求',true)]},
- {name:'fliggy_ai_search',label:'AI 综合旅行搜索',description:'用完整自然语言查询复杂或跨品类旅行需求。返回内容可能是文本而非商品列表。',fields:[string('query','完整旅行需求',true)]},
+ {name:'fliggy_ai_search',label:'一句话找旅行',description:'说说你想去哪、哪天去、预算多少，飞猪会帮你找线索。',fields:[string('query','你想怎么安排这趟旅行',true)]},
  {name:'search_flight',label:'国内 / 国际机票',description:'查询国内及国际航线公开展示价格与航班，不出票。',fields:traffic()},
  {name:'search_domestic_train',label:'国内火车',description:'查询国内火车路线、席别与展示价格，不购票。',fields:traffic()},
  {name:'search_poi',label:'景点 / 活动地点',description:'查询景点、演出赛事、户外活动等地点与门票信息。',fields:[string('cityName','所在城市',true),string('keyword','地点关键词'),number('poiLevel','景区等级',1,5,true),choice('category','地点类别',categories)]},

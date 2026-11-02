@@ -46,15 +46,15 @@ function reselect(){if(busy||!last?.selected)return;const previous=last;const ro
 function candidateSection(data){
  const items=[...data.eligible.filter(h=>h.id!==data.selected?.id),...data.rejected];
  if(!items.length)return null;
- const section=el('section',undefined,'hotel-candidate-section');section.append(el('h3',(data.selected?'其他候选，供参考':'本轮实际候选')+'（'+items.length+'）'));
+ const section=el('section',undefined,'hotel-candidate-section');const heading=el('div',undefined,'candidate-heading');const copy=el('div');copy.append(el('h3',(data.selected?'其他候选，供参考':'本轮实际候选')+'（'+items.length+'）'));if(!data.selected)copy.append(el('p',data.eligible.length?'通过硬性条件，但本轮没有选出主推。下面都是查到的酒店，你可以自己点开看。':'这轮没找到符合条件的住处，查到的酒店都放在下面。','candidate-summary'));heading.append(copy);const dog=el('img',undefined,'candidate-dog');dog.src='./assets/travel-dog.png';dog.alt='';dog.loading='lazy';heading.append(dog);section.append(heading);
  const list=el('div',undefined,'hotel-candidate-list');
- for(const h of items){const card=el('article',undefined,'hotel-candidate-item');card.append(el('h4',h.name),el('p',h.total==null?'住宿估算未知，请核实计价口径。':'住宿估算 ¥'+money(h.total)+' · '+(h.rating??'未知')+' 分'));
- card.append(el('p',h.reasons?.length?h.reasons.join('；'):'通过硬性条件，本轮未主推。','muted'));
+ for(const h of items){const card=el('article',undefined,'hotel-candidate-item');if(h.image){const img=el('img',undefined,'candidate-photo');img.src=h.image;img.alt=h.name+'的飞猪展示图片';img.loading='lazy';img.referrerPolicy='no-referrer';card.append(img);}card.append(el('h4',h.name),el('p',h.total==null?'住宿估算未知':'住宿估算 ¥'+money(h.total)+' · '+(h.rating??'评分未知')+' 分'));
+ if(h.reasons?.length)card.append(el('p',h.reasons.join('；'),'muted'));
  if(h.link){const a=el('a','查看飞猪详情 ↗');a.href=h.link;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}else card.append(el('p','未返回可验证详情链接。','muted'));list.append(card);}
  section.append(list);return section;
 }
 function render(data){const root=$('result');root.replaceChildren();
- if(!data.selected){const box=el('div',undefined,'no-match compact');const hasCandidates=data.eligible.length+data.rejected.length>0;box.append(el('h3',hasCandidates?'证据不够，无法拍板':'本次没有查到候选'),el('p',hasCandidates?'当前结果还不能给出可靠主推。候选和具体不足都列在下面，你可以直接查看详情。':'接口没有返回匹配候选，可以调整条件再查。'));const b=el('button','查看筛选依据','secondary');b.type='button';b.addEventListener('click',()=>evidence(data));box.append(b);root.append(box);const candidates=candidateSection(data);if(candidates)root.append(candidates);return;}
+ if(!data.selected){const box=el('div',undefined,'no-match compact');const hasCandidates=data.eligible.length+data.rejected.length>0;box.append(el('h3',hasCandidates?'证据不够，无法拍板':'本次没有查到候选'),el('p',hasCandidates?data.jev.called?'Jev 已经看过这轮结果，但还没有把握替你选一家。先看看查到了什么。':'这轮没有酒店通过筛选，先看看实际查到的结果。':'换个日期或预算，再查一轮。'));const b=el('button','看看筛选依据','secondary');b.type='button';b.addEventListener('click',()=>evidence(data));box.append(b);root.append(box);const candidates=candidateSection(data);if(candidates)root.append(candidates);return;}
 
  const h=data.selected,wrap=el('div',undefined,'recommendation');wrap.append(el('p','汪，先看这个。其他的我替你筛过了。','result-topline'));
  const card=el('div',undefined,'hotel-card');if(h.image){const img=el('img',undefined,'hotel-image');img.src=h.image;img.alt=h.name+'的飞猪展示图片';img.referrerPolicy='no-referrer';img.addEventListener('error',()=>{img.src='./assets/travel-landscape.png';},{once:true});card.append(img);}const info=el('div',undefined,'hotel-info');info.append(el('h3',h.name,'result-title'),el('p',`${h.star||'酒店'} · ${h.rating??'评分未知'} 分 · ${h.nearby||h.address}`,'hotel-meta'));const price=el('div',undefined,'price-row');price.append(el('strong',`¥${money(h.total)}`),el('span',`${data.trip.nights} 晚 × ${data.trip.rooms} 间住宿估算`));info.append(price,el('p',`每间每晚展示价 ¥${money(h.price)} · 预算余量 ¥${money(data.trip.budget-h.total)}`,'hotel-meta'));card.append(info);wrap.append(card);

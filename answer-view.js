@@ -19,12 +19,12 @@ export function answerMarkdown(model,{reason='',notice=''}={}){
   lines.push('## 这次主推',candidateLines(model.selected,{primary:true}));
   if(reason)lines.push(`**选择依据：** ${escape(reason)}。它是本轮真实候选，不代表未核实条件已得到保证。`);
  }else if(model.status==='empty')lines.push('## 本次没有查到候选','查询已完成，但接口没有返回匹配候选。可以调整关键词、日期或预算再查一次。');
- else if(model.status==='semantic')lines.push('## 证据不够，无法拍板','本轮返回的是语义搜索整理，尚未给出可逐项校验的结构化主推。下面保留实际搜索内容和链接，供你直接核对。');
- else lines.push('## 证据不够，无法拍板',`本轮查到了 **${model.candidates.length} 个候选**，关键条件尚未核实。先列出来，供你查看。`);
+ else if(model.status==='semantic')lines.push('## 证据不够，无法拍板','飞猪这次给的是一段整理，还没法替你选定一个。原文和链接都放在下面，你可以直接看。');
+ else lines.push('## 证据不够，无法拍板',`查到了 **${model.candidates.length} 个结果**，但还差一点把握。先把它们摆出来，你自己也能看看。`);
  if(notice)lines.push(`> ${escape(notice)}`);
  if(model.alternatives.length){lines.push(`## ${model.selected?'其他候选，供参考':'本轮候选，供参考'}（${model.alternatives.length}）`);for(const h of model.alternatives)lines.push(candidateLines(h));}
  if(model.excludedCandidates.length){lines.push(`## 你已否决的候选（${model.excludedCandidates.length}）`,'这些结果仍由接口返回，保留供核对，不会再次主推。');for(const h of model.excludedCandidates)lines.push(candidateLines(h));}
- if(model.semantic.length){lines.push('## 飞猪搜索返回','以下为官方搜索整理，未独立核实其中每项描述。');for(const s of model.semantic)lines.push(s.text);}
+ if(model.semantic.length){lines.push('## 飞猪查到的','下面是飞猪返回的内容，具体信息点开链接再核对。');for(const s of model.semantic)lines.push(s.text);}
  if(model.candidates.length){lines.push('---','**查看后再决定：** 展示价与库存随时可能变化；开放、预约、适用人群、设施、税费与退改，以官方详情确认。');
   const sources=[...new Set(model.candidates.map(h=>`${TOOLS.find(t=>t.name===h.tool)?.label??'飞猪查询'} · ${new Date(h.queriedAt).toLocaleString('zh-CN')}`))];lines.push('查询来源：'+sources.map(escape).join('；')+'。');}
  for(const hint of model.hints)lines.push(`> 平台提示：${escape(hint)}`);
