@@ -7,3 +7,8 @@ node_modules/
 *.log
 gateway-site/
 dist/
+
+# Original demo is distributed as a GitHub Release asset
+/Demo展示.mp4
+/百炼使用效果.png
+/交付/

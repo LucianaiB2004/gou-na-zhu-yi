@@ -11,6 +11,8 @@
 - 功能与真实验证：docs/verification.md、docs/flyai-capabilities.md、docs/travel-verification.json。
 - 现有界面截图：docs/screenshots/。
 
-百炼体验链接：用户部署并确认访问权限后填写。目前不把控制台地址或历史会话 ID 当作公开体验入口。视频由用户录制并填写链接。本清单与正文均未代为提交到赛事仓库。
+百炼体验链接：用户部署并确认访问权限后填写。目前不把控制台地址或历史会话 ID 当作公开体验入口。演示视频已由作者录制，GitHub Release 链接已填写。本清单与正文均未代为提交到赛事仓库。
 
 - 百炼精简运行附件：交付/狗拿主意-百炼运行包.zip，已在正式会话上传并验证。
+
+正式粘贴正文：docs/submission-ready.md；录制参考：docs/recording-guide.md；最终核对：docs/final-review.md。

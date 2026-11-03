@@ -6,6 +6,12 @@
 
 ![界面与真实酒店结果](docs/screenshots/redesign-desktop.jpg)
 
+## 演示视频与百炼运行
+
+[观看或下载完整演示视频（约6分钟）](https://github.com/LucianaiB2004/gou-na-zhu-yi/releases/tag/demo-2026-11-03) · [参赛介绍](docs/submission-ready.md)
+
+![百炼实际运行截图](docs/screenshots/bailian-user-run.png)
+
 ## 直接使用
 
 [打开网页](https://lucianaib2004.github.io/gou-na-zhu-yi/)，在右上角「API 设置」填写自己的 Key。所有 Key 仅在本页内存中使用，刷新即清除，不写入 localStorage、仓库或服务端数据库。
@@ -47,7 +53,7 @@ npm run build
 
 ## 百炼中的真实使用
 
-按参赛指南在百炼 Managed Agent 创建「狗拿主意」，使用 AUTO 和默认工具，安装官方 `alibaba-flyai/flyai-skill`，将 FlyAI Key 注入运行时环境。可复制的完整提示词见 [百炼系统提示词](docs/bailian-system-prompt.md)。
+按参赛指南在百炼 Managed Agent 创建「狗拿主意」，使用 AUTO 和默认工具，上传包含官方 `alibaba-flyai/flyai-skill` 文档的项目运行包，按文档执行官方 CLI，将 FlyAI Key 注入运行时环境。可复制的完整提示词见 [百炼系统提示词](docs/bailian-system-prompt.md)。
 
 百炼会话内运行官方 FlyAI CLI；酒店调用 `node cloud/decide.mjs trip.json`，其他品类按官方 Skill 的 references 使用。百炼本身承担理解、查询与判断，不只是开发环境。完整酒店对话和预算修改后重新查询已实测。
 
