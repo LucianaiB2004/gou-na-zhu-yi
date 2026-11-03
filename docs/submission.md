@@ -25,8 +25,12 @@
 - [验证记录](https://github.com/LucianaiB2004/gou-na-zhu-yi/blob/main/docs/verification.md)
 - [真实界面截图](https://raw.githubusercontent.com/LucianaiB2004/gou-na-zhu-yi/main/docs/screenshots/redesign-desktop.jpg)
 
-8类官方工具真实调用成功，32项自动测试通过。Node.js 22.18+，`npm ci`、`npm start`；静态构建 `npm run build`。不需要账号、数据库或持久化旅行档案。
+8类官方工具真实调用成功，33项自动测试通过。Node.js 22.18+，`npm ci`、`npm start`；静态构建 `npm run build`。不需要账号、数据库或持久化旅行档案。
 
-当前只读搜索与旅行辅助，不下单、支付、退改或处理证件。拍照、语音、实时定位未实现，不声称全赛道专业能力均已完成。
+真实返回的图片与商品详情链接直接交给用户查看；用户可在飞猪登录后进一步了解和预订。
 
 按用户要求，本材料只保留，尚未向官方仓库提交报名Issue。
+
+## 两个作品入口与附件
+
+GitHub 源码和网页见上方链接。百炼体验链接在用户部署并确认访问权限后填写；现有控制台 ID 不替代评审体验链接。百炼代码附件、三个示例与部署步骤见 [百炼交付说明](bailian-delivery.md)；完整清单见 [提交清单](submission-checklist.md)。视频由用户录制后补充。
