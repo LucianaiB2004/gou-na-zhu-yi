@@ -8,7 +8,7 @@
 
 ## 演示视频与百炼运行
 
-[观看或下载完整演示视频（约6分钟）](https://github.com/LucianaiB2004/gou-na-zhu-yi/releases/tag/demo-2026-11-03) · [参赛介绍](docs/submission-ready.md)
+[观看演示视频（完整6分2秒）](docs/media/demo.mp4) · [演示附件](https://github.com/LucianaiB2004/gou-na-zhu-yi/releases/tag/demo-2026-11-03) · [参赛介绍](docs/submission-ready.md)
 
 ![百炼实际运行截图](docs/screenshots/bailian-user-run.png)
 

@@ -41,7 +41,9 @@
 
 演示视频（约6分钟）：https://github.com/LucianaiB2004/gou-na-zhu-yi/releases/tag/demo-2026-11-03
 
-原片与百炼截图均可在上述 GitHub Release 下载。
+[直接查看演示视频（网页压缩版，完整6分2秒）](https://github.com/LucianaiB2004/gou-na-zhu-yi/blob/main/docs/media/demo.mp4)
+
+百炼截图也可在上述 GitHub Release 下载。
 
 ![作者录制时的百炼实际运行截图](https://raw.githubusercontent.com/LucianaiB2004/gou-na-zhu-yi/main/docs/screenshots/bailian-user-run.png)
 
